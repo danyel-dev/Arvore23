@@ -29,9 +29,8 @@ int main() {
 
     insere23(NULL, &Raiz, 400, &infoMeio);
     insere23(NULL, &Raiz, 100, &infoMeio);
-    insere23(NULL, &Raiz, 800, &infoMeio);
-    insere23(NULL, &Raiz, 900, &infoMeio);
     insere23(NULL, &Raiz, 500, &infoMeio);
+
 
     // insere23(NULL, &Raiz, 400, &infoMeio);
     // insere23(NULL, &Raiz, 800, &infoMeio);
@@ -164,7 +163,7 @@ int exclusao(Arv23 **pai, Arv23 **Raiz, int info) {
                     (**Raiz).nChaves = 1;
                 } 
                 
-                else {
+                else if ((**pai).nChaves == 2) {
                     if (info > (**pai).chaveDir && (**pai).centro->nChaves == 2) {
                         (**Raiz).chaveEsq = (**pai).chaveDir;
                         (**pai).chaveDir = (**pai).centro->chaveDir;
@@ -224,6 +223,36 @@ int exclusao(Arv23 **pai, Arv23 **Raiz, int info) {
                         (**pai).centro->chaveDir = (**pai).dir->chaveEsq;
                         (**pai).centro->nChaves = 2;
                         (**pai).dir = NULL; 
+                    }
+                } 
+
+                else {
+                    if (info > (**pai).chaveEsq && (**pai).esq->nChaves == 2) {
+                        (**Raiz).chaveEsq = (**pai).chaveEsq; 
+                        (**pai).chaveEsq = (**pai).esq->chaveDir;    
+                        (**pai).esq->chaveDir = 0;
+                        (**pai).esq->nChaves = 1;
+                    }
+
+                    else if (info < (**pai).chaveEsq && (**pai).centro->nChaves == 2) {
+                        (**Raiz).chaveEsq = (**pai).chaveEsq;
+                        (**pai).chaveEsq = (**pai).centro->chaveEsq;
+                        (**pai).centro->chaveEsq = (**pai).centro->chaveDir;
+                        (**pai).centro->chaveDir = 0;
+                        (**pai).centro->nChaves = 1;
+                    }
+
+                    else if (info < (**pai).chaveEsq) {
+                        (**Raiz).chaveEsq = (**pai).chaveEsq;
+                        (**Raiz).chaveDir = (**pai).centro->chaveEsq;
+                        (**Raiz).nChaves = 2;
+                        *pai = *Raiz;
+                    }
+
+                    else {
+                        (**pai).esq->chaveDir = (**pai).chaveEsq;
+                        (**pai).esq->nChaves = 2; 
+                        *pai = (**pai).esq;
                     }
                 }
             } 
