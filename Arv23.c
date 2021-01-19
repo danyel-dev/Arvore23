@@ -25,7 +25,7 @@ int exclusao(Arv23 **pai, Arv23 **Raiz, int info);
 
 int main() {
     Arv23 *Raiz = NULL;
-    int infoMeio; //
+    int infoMeio; 
 
     insere23(NULL, &Raiz, 400, &infoMeio);
     insere23(NULL, &Raiz, 100, &infoMeio);
