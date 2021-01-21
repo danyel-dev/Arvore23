@@ -30,24 +30,25 @@ int main() {
     insere23(NULL, &Raiz, 400, &infoMeio);
     insere23(NULL, &Raiz, 100, &infoMeio);
     insere23(NULL, &Raiz, 500, &infoMeio);
-
-
-    // insere23(NULL, &Raiz, 400, &infoMeio);
-    // insere23(NULL, &Raiz, 800, &infoMeio);
+    insere23(NULL, &Raiz, 300, &infoMeio);
+    insere23(NULL, &Raiz, 700, &infoMeio);
+    insere23(NULL, &Raiz, 900, &infoMeio);
+    insere23(NULL, &Raiz, 1000, &infoMeio);
+    insere23(NULL, &Raiz, 600, &infoMeio);
+    insere23(NULL, &Raiz, 1300, &infoMeio);
+    insere23(NULL, &Raiz, 1500, &infoMeio);
     // insere23(NULL, &Raiz, 1200, &infoMeio);
-    // insere23(NULL, &Raiz, 100, &infoMeio);
-    // insere23(NULL, &Raiz, 500, &infoMeio); 
-    // insere23(NULL, &Raiz, 1400, &infoMeio);
-    // insere23(NULL, &Raiz, 1600, &infoMeio);
-    // insere23(NULL, &Raiz, 1500, &infoMeio);
-    // insere23(NULL, &Raiz, 2000, &infoMeio);
-    // insere23(NULL, &Raiz, 2500, &infoMeio);
-    // insere23(NULL, &Raiz, 3000, &infoMeio);
-    // insere23(NULL, &Raiz, 3500, &infoMeio);
-    // insere23(NULL, &Raiz, 4000, &infoMeio);
+    // insere23(NULL, &Raiz, 800, &infoMeio);
+    insere23(NULL, &Raiz, 1100, &infoMeio);
+    insere23(NULL, &Raiz, 1700, &infoMeio);
+    insere23(NULL, &Raiz, 350, &infoMeio);
+    insere23(NULL, &Raiz, 450, &infoMeio);
+    insere23(NULL, &Raiz, 150, &infoMeio);
+    insere23(NULL, &Raiz, 50, &infoMeio);
+    insere23(NULL, &Raiz, 470, &infoMeio);
+    insere23(NULL, &Raiz, 490, &infoMeio);
 
-    exclusao(NULL, &Raiz, 100);
-
+    exclusao(NULL, &Raiz, 1000);
     mostrar(Raiz);
 
     return 0;    
@@ -256,6 +257,56 @@ int exclusao(Arv23 **pai, Arv23 **Raiz, int info) {
                     }
                 }
             } 
+
+            else if (*pai != NULL && folha(*Raiz) == 0) {
+                if (estaContido(*Raiz, info) == 2) {
+                    if ((**Raiz).dir->nChaves == 2) {
+                        (**Raiz).chaveDir = (**Raiz).dir->chaveEsq;
+                        (**Raiz).dir->chaveEsq = (**Raiz).dir->chaveDir;
+                        (**Raiz).dir->chaveDir = 0;
+                        (**Raiz).dir->nChaves = 1;
+                    }
+
+                    else if ((**Raiz).centro->nChaves == 2) {
+                        (**Raiz).chaveDir = (**Raiz).centro->chaveDir;
+                        (**Raiz).centro->chaveDir = 0;
+                        (**Raiz).centro->nChaves = 1;
+                    }
+
+                    else {
+                        (**Raiz).centro->chaveDir = (**Raiz).dir->chaveEsq;
+                        (**Raiz).centro->nChaves = 2;
+                        (**Raiz).chaveDir = 0;
+                        (**Raiz).nChaves = 2;
+                        (**Raiz).dir = NULL;
+                    }
+                } 
+
+                else if (estaContido(*Raiz, info) == 1) {
+                    if ((**Raiz).centro->nChaves == 2) {
+                        (**Raiz).chaveEsq = (**Raiz).centro->chaveEsq;
+                        (**Raiz).centro->chaveEsq = (**Raiz).centro->chaveDir;
+                        (**Raiz).centro->chaveDir = 0;
+                        (**Raiz).centro->nChaves = 1;
+                    }
+
+                    else if ((**Raiz).esq->nChaves == 2) {
+                        (**Raiz).chaveEsq = (**Raiz).esq->chaveDir;
+                        (**Raiz).esq->chaveDir = 0;
+                        (**Raiz).esq->nChaves = 1;
+                    }
+
+                    else {
+                        (**Raiz).chaveEsq = (**Raiz).centro->chaveEsq;
+                        (**Raiz).centro->chaveEsq = (**Raiz).chaveDir;
+                        (**Raiz).chaveDir = (**Raiz).dir->chaveEsq;
+                        (**Raiz).dir->chaveEsq = (**Raiz).dir->chaveDir;
+                        (**Raiz).dir->chaveDir = 0;
+                        (**Raiz).dir->nChaves = 1;
+                    }
+                }
+
+            }
         } 
 
         else if (info < (**Raiz).chaveEsq)
